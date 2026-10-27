@@ -1,0 +1,720 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="workspace" id="editor-workspace">
+  <!-- LEFT SIDEBAR: CONTROLS -->
+  <aside class="sidebar-controls" aria-label="Artwork Controls">
+
+    <!-- 01 / TEXT INPUT -->
+    <section class="control-section" id="sec-text">
+      <div class="section-header" data-toggle-section="sec-text">
+        <span class="section-index">01</span>
+        <h2 class="section-title">Text Input</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <div class="field-group">
+          <div class="label-row">
+            <label for="ctrl-text">Source Paragraph</label>
+            <span id="text-stats" class="meta-readout">0 WORDS · 0 CHARS</span>
+          </div>
+          <textarea id="ctrl-text" class="text-area" rows="5" placeholder="Enter paragraph, phrase, or words..."></textarea>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-distribution-mode">Distribution</label>
+            <select id="ctrl-distribution-mode" class="select-input">
+              <option value="sequential">Sequential</option>
+              <option value="randomized">Randomized</option>
+              <option value="custom">Custom Word / Phrase</option>
+            </select>
+          </div>
+          <div class="field-group checkbox-aligned">
+            <label class="checkbox-label" for="ctrl-repeat-text">
+              <input type="checkbox" id="ctrl-repeat-text" checked>
+              <span>Repeat Text</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group" id="custom-phrase-group">
+          <label for="ctrl-custom-phrase">Custom Repeated Word / Phrase</label>
+          <input type="text" id="ctrl-custom-phrase" class="text-input" placeholder="TYPEFORM" value="TYPEFORM">
+        </div>
+
+        <div class="field-row">
+          <button type="button" id="btn-generate" class="text-btn text-btn-inverted full-width">Generate Artwork</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / IMAGE & SILHOUETTE MASK -->
+    <section class="control-section" id="sec-mask">
+      <div class="section-header" data-toggle-section="sec-mask">
+        <span class="section-index">02</span>
+        <h2 class="section-title">Silhouette &amp; Mask</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-fill-mode">Fill Region</label>
+            <select id="ctrl-fill-mode" class="select-input">
+              <option value="silhouette">Silhouette</option>
+              <option value="rectangle">Rectangle</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-builtin-shape">Reference Shape</label>
+            <select id="ctrl-builtin-shape" class="select-input">
+              <option value="builtin:portrait">Portrait Bust</option>
+              <option value="builtin:circle">Circle</option>
+              <option value="builtin:arch">Editorial Arch</option>
+              <option value="builtin:monolith">Monolith</option>
+              <option value="builtin:diamond">Diamond</option>
+              <option value="uploaded" id="opt-uploaded-shape" disabled>Uploaded Image</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Drag and drop upload zone -->
+        <div class="upload-zone" id="upload-dropzone" tabindex="0" role="button" aria-label="Upload image file">
+          <input type="file" id="ctrl-file-input" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" hidden>
+          <div class="upload-prompt" id="upload-prompt">
+            <span class="upload-title">Drop PNG, JPG, or WebP here</span>
+            <span class="upload-sub">or click to select file (max 16 MB)</span>
+          </div>
+        </div>
+
+        <!-- Uploaded file metadata bar -->
+        <div class="upload-info-bar" id="upload-info-bar" hidden>
+          <div class="upload-meta-text">
+            <div class="upload-filename" id="upload-filename">—</div>
+            <div class="upload-dimensions" id="upload-dimensions">—</div>
+          </div>
+          <div class="upload-actions">
+            <button type="button" id="btn-replace-image" class="text-btn text-btn-sm">Replace</button>
+            <button type="button" id="btn-remove-image" class="text-btn text-btn-sm">Remove</button>
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-canvas-width">Canvas W (px)</label>
+            <input type="number" id="ctrl-canvas-width" class="number-input" min="200" max="2400" step="10" value="900">
+          </div>
+          <div class="field-group">
+            <label for="ctrl-canvas-height">Canvas H (px)</label>
+            <input type="number" id="ctrl-canvas-height" class="number-input" min="200" max="2400" step="10" value="1125">
+          </div>
+        </div>
+
+        <div class="preset-bar">
+          <span class="preset-label">Ratio:</span>
+          <button type="button" class="text-btn text-btn-xs" data-aspect="900x1125">4:5</button>
+          <button type="button" class="text-btn text-btn-xs" data-aspect="900x1200">3:4</button>
+          <button type="button" class="text-btn text-btn-xs" data-aspect="1000x1000">1:1</button>
+          <button type="button" class="text-btn text-btn-xs" data-aspect="1200x800">3:2</button>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-fit-mode">Image Fit</label>
+            <select id="ctrl-fit-mode" class="select-input">
+              <option value="fit">Fit</option>
+              <option value="fill">Fill</option>
+              <option value="crop">Crop</option>
+              <option value="stretch">Stretch</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-fg-mode">Foreground Mode</label>
+            <select id="ctrl-fg-mode" class="select-input">
+              <option value="auto">Auto Detect</option>
+              <option value="alpha">Alpha Channel</option>
+              <option value="dark_on_light">Dark on Light</option>
+              <option value="light_on_dark">Light on Dark</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label for="ctrl-threshold">Threshold</label>
+            <span id="val-threshold" class="meta-readout">128</span>
+          </div>
+          <input type="range" id="ctrl-threshold" class="range-input" min="0" max="255" step="1" value="128">
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label for="ctrl-contrast">Contrast</label>
+            <span id="val-contrast" class="meta-readout">1.20</span>
+          </div>
+          <input type="range" id="ctrl-contrast" class="range-input" min="0.2" max="3.5" step="0.05" value="1.2">
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label for="ctrl-min-overlap">Min Mask Overlap</label>
+            <span id="val-min-overlap" class="meta-readout">55%</span>
+          </div>
+          <input type="range" id="ctrl-min-overlap" class="range-input" min="0.05" max="1.0" step="0.05" value="0.55">
+        </div>
+
+        <div class="field-row">
+          <label class="checkbox-label" for="ctrl-invert-mask">
+            <input type="checkbox" id="ctrl-invert-mask">
+            <span>Invert Silhouette Mask</span>
+          </label>
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label for="ctrl-image-scale">Image Scale</label>
+            <span id="val-image-scale" class="meta-readout">1.00×</span>
+          </div>
+          <input type="range" id="ctrl-image-scale" class="range-input" min="0.2" max="2.5" step="0.05" value="1.0">
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-image-offset-x">Offset X</label>
+              <span id="val-image-offset-x" class="meta-readout">0%</span>
+            </div>
+            <input type="range" id="ctrl-image-offset-x" class="range-input" min="-100" max="100" step="1" value="0">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-image-offset-y">Offset Y</label>
+              <span id="val-image-offset-y" class="meta-readout">0%</span>
+            </div>
+            <input type="range" id="ctrl-image-offset-y" class="range-input" min="-100" max="100" step="1" value="0">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Crop Margins (% — Left / Top / Right / Bottom)</label>
+          <div class="field-row four-col">
+            <input type="number" id="ctrl-crop-left" class="number-input" min="0" max="45" step="1" value="0" title="Crop Left %">
+            <input type="number" id="ctrl-crop-top" class="number-input" min="0" max="45" step="1" value="0" title="Crop Top %">
+            <input type="number" id="ctrl-crop-right" class="number-input" min="0" max="45" step="1" value="0" title="Crop Right %">
+            <input type="number" id="ctrl-crop-bottom" class="number-input" min="0" max="45" step="1" value="0" title="Crop Bottom %">
+          </div>
+        </div>
+
+        <!-- Inline Mask Preview Thumbnail -->
+        <div class="mask-preview-box">
+          <div class="label-row">
+            <span>Extracted Binary Mask</span>
+            <span id="mask-coverage-readout" class="meta-readout">—% ACTIVE</span>
+          </div>
+          <div class="mask-thumb-frame">
+            <img id="mask-thumb-img" alt="Binary Mask Preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / TYPOGRAPHY -->
+    <section class="control-section" id="sec-typography">
+      <div class="section-header" data-toggle-section="sec-typography">
+        <span class="section-index">03</span>
+        <h2 class="section-title">Typography</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <div class="field-group">
+          <label for="ctrl-font-family">Font Family</label>
+          <select id="ctrl-font-family" class="select-input">
+            <option value="Space Grotesk">Space Grotesk (Default)</option>
+            <option value="Neue Machina">Neue Machina</option>
+            <option value="DejaVu Sans">DejaVu Sans</option>
+            <option value="DejaVu Sans Mono">DejaVu Sans Mono</option>
+            <option value="DejaVu Serif">DejaVu Serif</option>
+            <option value="Bahnschrift">Bahnschrift</option>
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Impact">Impact</option>
+          </select>
+        </div>
+
+        <div class="field-row three-col">
+          <div class="field-group">
+            <label for="ctrl-font-size">Size (px)</label>
+            <input type="number" id="ctrl-font-size" class="number-input" min="6" max="96" step="1" value="15">
+          </div>
+          <div class="field-group">
+            <label for="ctrl-font-weight">Weight</label>
+            <select id="ctrl-font-weight" class="select-input">
+              <option value="700">Bold (700)</option>
+              <option value="400">Regular (400)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-font-style">Style</label>
+            <select id="ctrl-font-style" class="select-input">
+              <option value="normal">Normal</option>
+              <option value="italic">Italic</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="ctrl-text-case">Case Transformation</label>
+          <select id="ctrl-text-case" class="select-input">
+            <option value="uppercase">UPPERCASE</option>
+            <option value="lowercase">lowercase</option>
+            <option value="sentence">Sentence case</option>
+            <option value="original">Original Case</option>
+          </select>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-letter-spacing">Tracking</label>
+              <span id="val-letter-spacing" class="meta-readout">0.5px</span>
+            </div>
+            <input type="range" id="ctrl-letter-spacing" class="range-input" min="-3" max="12" step="0.5" value="0.5">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-line-height">Line Height</label>
+              <span id="val-line-height" class="meta-readout">1.15</span>
+            </div>
+            <input type="range" id="ctrl-line-height" class="range-input" min="0.8" max="2.4" step="0.05" value="1.15">
+          </div>
+        </div>
+
+        <div class="field-row three-col">
+          <div class="field-group">
+            <label for="ctrl-text-align">Text Align</label>
+            <select id="ctrl-text-align" class="select-input">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-box-h-align">Box H-Align</label>
+            <select id="ctrl-box-h-align" class="select-input">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-box-v-align">Box V-Align</label>
+            <select id="ctrl-box-v-align" class="select-input">
+              <option value="top">Top</option>
+              <option value="middle">Middle</option>
+              <option value="bottom">Bottom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / TEXT BOX DIMENSIONS & LAYOUT -->
+    <section class="control-section" id="sec-layout">
+      <div class="section-header" data-toggle-section="sec-layout">
+        <span class="section-index">04</span>
+        <h2 class="section-title">Box Dimensions &amp; Layout</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <div class="field-group">
+          <label for="ctrl-layout-mode">Layout Mode</label>
+          <select id="ctrl-layout-mode" class="select-input">
+            <option value="word_boxes">Word Boxes (Measured Width)</option>
+            <option value="variable_rows">Variable-Width Rows</option>
+            <option value="fixed_grid">Fixed Uniform Grid</option>
+            <option value="dense">Dense Typography</option>
+            <option value="loose">Loose Typography</option>
+          </select>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-box-width">Box Width</label>
+              <span id="val-box-width" class="meta-readout">66px</span>
+            </div>
+            <input type="range" id="ctrl-box-width" class="range-input" min="20" max="240" step="1" value="66">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-box-height">Box Height</label>
+              <span id="val-box-height" class="meta-readout">26px</span>
+            </div>
+            <input type="range" id="ctrl-box-height" class="range-input" min="12" max="120" step="1" value="26">
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-min-box-width">Min Box W (px)</label>
+            <input type="number" id="ctrl-min-box-width" class="number-input" min="12" max="300" step="2" value="28">
+          </div>
+          <div class="field-group">
+            <label for="ctrl-max-box-width">Max Box W (px)</label>
+            <input type="number" id="ctrl-max-box-width" class="number-input" min="24" max="500" step="2" value="210">
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-h-spacing">H-Spacing</label>
+              <span id="val-h-spacing" class="meta-readout">4px</span>
+            </div>
+            <input type="range" id="ctrl-h-spacing" class="range-input" min="0" max="40" step="1" value="4">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-v-spacing">V-Spacing</label>
+              <span id="val-v-spacing" class="meta-readout">4px</span>
+            </div>
+            <input type="range" id="ctrl-v-spacing" class="range-input" min="0" max="40" step="1" value="4">
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-padding-x">Padding X (px)</label>
+            <input type="number" id="ctrl-padding-x" class="number-input" min="0" max="40" step="1" value="6">
+          </div>
+          <div class="field-group">
+            <label for="ctrl-padding-y">Padding Y (px)</label>
+            <input type="number" id="ctrl-padding-y" class="number-input" min="0" max="40" step="1" value="4">
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-box-align">Row Alignment</label>
+            <select id="ctrl-box-align" class="select-input">
+              <option value="center">Center Contour</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+              <option value="justify">Justify Contour</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-word-wrap">Word Wrapping</label>
+            <select id="ctrl-word-wrap" class="select-input">
+              <option value="none">Single Line</option>
+              <option value="wrap">Wrap Long Words</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-row-offset">Row Offset</label>
+              <span id="val-row-offset" class="meta-readout">0px</span>
+            </div>
+            <input type="range" id="ctrl-row-offset" class="range-input" min="-60" max="60" step="2" value="0">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-irregular-edge">Irregular Edge</label>
+              <span id="val-irregular-edge" class="meta-readout">15%</span>
+            </div>
+            <input type="range" id="ctrl-irregular-edge" class="range-input" min="0" max="100" step="5" value="15">
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-box-density">Box Density</label>
+              <span id="val-box-density" class="meta-readout">100%</span>
+            </div>
+            <input type="range" id="ctrl-box-density" class="range-input" min="0.1" max="1.0" step="0.05" value="1.0">
+          </div>
+          <div class="field-group">
+            <div class="label-row">
+              <label for="ctrl-box-border-width">Box Border</label>
+              <span id="val-box-border-width" class="meta-readout">0px</span>
+            </div>
+            <input type="range" id="ctrl-box-border-width" class="range-input" min="0" max="6" step="1" value="0">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / COLOR CONTROLS -->
+    <section class="control-section" id="sec-color">
+      <div class="section-header" data-toggle-section="sec-color">
+        <span class="section-index">05</span>
+        <h2 class="section-title">Color System</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-color-mode">Color Mode</label>
+            <select id="ctrl-color-mode" class="select-input">
+              <option value="random">Random (From Palette)</option>
+              <option value="monochrome">Monochrome</option>
+              <option value="two_color">Two-Color Palette</option>
+              <option value="custom_palette">Custom Sequence</option>
+              <option value="grayscale">Grayscale</option>
+              <option value="gradient">Gradient Palette</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-apply-to">Apply Colors To</label>
+            <select id="ctrl-apply-to" class="select-input">
+              <option value="box_and_text">Boxes &amp; Text</option>
+              <option value="box_only">Box Backgrounds Only</option>
+              <option value="text_only">Typography Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-background-color">Canvas Background</label>
+            <div class="color-picker-row">
+              <input type="color" id="ctrl-background-color" class="color-swatch-input" value="#F5F3EF">
+              <input type="text" id="ctrl-background-color-hex" class="text-input hex-input" value="#F5F3EF" maxlength="7">
+            </div>
+          </div>
+          <div class="field-group checkbox-aligned">
+            <label class="checkbox-label" for="ctrl-transparent-bg">
+              <input type="checkbox" id="ctrl-transparent-bg">
+              <span>Transparent BG</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-primary-text-color">Primary Text</label>
+            <div class="color-picker-row">
+              <input type="color" id="ctrl-primary-text-color" class="color-swatch-input" value="#171717">
+              <input type="text" id="ctrl-primary-text-color-hex" class="text-input hex-input" value="#171717" maxlength="7">
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-secondary-text-color">Secondary Text</label>
+            <div class="color-picker-row">
+              <input type="color" id="ctrl-secondary-text-color" class="color-swatch-input" value="#F5F3EF">
+              <input type="text" id="ctrl-secondary-text-color-hex" class="text-input hex-input" value="#F5F3EF" maxlength="7">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-box-bg-color">Base Box Fill</label>
+            <div class="color-picker-row">
+              <input type="color" id="ctrl-box-bg-color" class="color-swatch-input" value="#171717">
+              <input type="text" id="ctrl-box-bg-color-hex" class="text-input hex-input" value="#171717" maxlength="7">
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="ctrl-box-border-color">Box Border Color</label>
+            <div class="color-picker-row">
+              <input type="color" id="ctrl-box-border-color" class="color-swatch-input" value="#171717">
+              <input type="text" id="ctrl-box-border-color-hex" class="text-input hex-input" value="#171717" maxlength="7">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="label-row">
+            <label>Palette &amp; Assignment Frequency</label>
+            <button type="button" id="btn-add-palette-color" class="text-btn text-btn-xs">+ Add Color</button>
+          </div>
+          <div class="preset-bar">
+            <span class="preset-label">Presets:</span>
+            <button type="button" class="text-btn text-btn-xs" data-palette-preset="editorial">Editorial</button>
+            <button type="button" class="text-btn text-btn-xs" data-palette-preset="mono">Mono</button>
+            <button type="button" class="text-btn text-btn-xs" data-palette-preset="swiss">Swiss</button>
+            <button type="button" class="text-btn text-btn-xs" data-palette-preset="archive">Archive</button>
+          </div>
+          <div id="palette-list" class="palette-list"></div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field-group">
+            <label for="ctrl-seed">Random Seed</label>
+            <input type="number" id="ctrl-seed" class="number-input" min="0" max="9999999" step="1" value="42">
+          </div>
+          <div class="field-group btn-aligned">
+            <button type="button" id="btn-shuffle-seed" class="text-btn full-width">Shuffle Seed</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 / EXPORT SUMMARY -->
+    <section class="control-section" id="sec-export-quick">
+      <div class="section-header" data-toggle-section="sec-export-quick">
+        <span class="section-index">06</span>
+        <h2 class="section-title">Output &amp; Export</h2>
+        <span class="section-toggle-label">Collapse</span>
+      </div>
+      <div class="section-body">
+        <p class="section-note">Export vector SVG, high-resolution PNG, or print-ready JPG at 1×, 2×, 3×, or 4× scale.</p>
+        <button type="button" id="btn-sidebar-export" class="text-btn text-btn-inverted full-width">Configure &amp; Download Export</button>
+      </div>
+    </section>
+  </aside>
+
+  <!-- RIGHT WORKSPACE: PREVIEW -->
+  <section class="preview-workspace" aria-label="Artwork Preview">
+    <!-- Top Canvas Toolbar -->
+    <div class="preview-toolbar">
+      <div class="toolbar-group">
+        <span class="toolbar-label">Zoom</span>
+        <button type="button" id="btn-zoom-out" class="text-btn text-btn-xs" title="Zoom Out">-</button>
+        <span id="zoom-readout" class="toolbar-readout">100%</span>
+        <button type="button" id="btn-zoom-in" class="text-btn text-btn-xs" title="Zoom In">+</button>
+        <button type="button" id="btn-zoom-fit" class="text-btn text-btn-xs" title="Fit to View">Fit</button>
+        <button type="button" id="btn-zoom-100" class="text-btn text-btn-xs" title="Reset Zoom to 100%">1:1</button>
+      </div>
+
+      <div class="toolbar-group">
+        <span class="toolbar-label">View</span>
+        <button type="button" class="text-btn text-btn-xs is-active" data-view-mode="artwork">Artwork</button>
+        <button type="button" class="text-btn text-btn-xs" data-view-mode="overlay">Mask Overlay</button>
+        <button type="button" class="text-btn text-btn-xs" data-view-mode="mask">Mask Only</button>
+        <button type="button" class="text-btn text-btn-xs" data-view-mode="split">Before / After</button>
+      </div>
+
+      <div class="toolbar-group" id="split-slider-group" hidden>
+        <span class="toolbar-label">Split</span>
+        <input type="range" id="ctrl-split-pos" class="range-input split-range" min="5" max="95" value="50">
+      </div>
+
+      <div class="toolbar-group">
+        <span class="toolbar-label">Stage</span>
+        <button type="button" class="text-btn text-btn-xs is-active" data-stage-bg="paper">Paper</button>
+        <button type="button" class="text-btn text-btn-xs" data-stage-bg="dark">Dark</button>
+        <button type="button" class="text-btn text-btn-xs" data-stage-bg="checker">Grid</button>
+      </div>
+
+      <div class="toolbar-group toolbar-right">
+        <span id="canvas-metrics" class="toolbar-readout">0 BOXES · 900×1125</span>
+        <button type="button" id="btn-toolbar-regenerate" class="text-btn text-btn-xs text-btn-inverted">Regenerate</button>
+      </div>
+    </div>
+
+    <!-- Interactive Canvas Viewport -->
+    <div class="canvas-viewport stage-paper" id="canvas-viewport">
+      <div class="canvas-transform-layer" id="canvas-transform-layer">
+        <canvas id="artwork-canvas" width="900" height="1125"></canvas>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- EXPORT MODAL DIALOG -->
+<div class="modal-backdrop" id="export-modal" hidden role="dialog" aria-modal="true" aria-labelledby="export-modal-title">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <h2 id="export-modal-title" class="modal-title">Export Artwork</h2>
+      <button type="button" id="btn-close-export" class="text-btn text-btn-sm">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label>Output Format</label>
+        <div class="segmented-row" id="export-format-selector">
+          <button type="button" class="seg-btn is-active" data-export-format="png">PNG (Raster)</button>
+          <button type="button" class="seg-btn" data-export-format="svg">SVG (Vector)</button>
+          <button type="button" class="seg-btn" data-export-format="jpg">JPG (Print)</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Resolution Multiplier</label>
+        <div class="segmented-row" id="export-scale-selector">
+          <button type="button" class="seg-btn is-active" data-export-scale="1">1×</button>
+          <button type="button" class="seg-btn" data-export-scale="2">2×</button>
+          <button type="button" class="seg-btn" data-export-scale="3">3×</button>
+          <button type="button" class="seg-btn" data-export-scale="4">4×</button>
+        </div>
+      </div>
+
+      <div class="field-row two-col">
+        <div class="field-group">
+          <label for="ctrl-export-bg-color">Background Color</label>
+          <div class="color-picker-row">
+            <input type="color" id="ctrl-export-bg-color" class="color-swatch-input" value="#F5F3EF">
+            <input type="text" id="ctrl-export-bg-color-hex" class="text-input hex-input" value="#F5F3EF" maxlength="7">
+          </div>
+        </div>
+        <div class="field-group checkbox-aligned" id="export-transparent-group">
+          <label class="checkbox-label" for="ctrl-export-transparent">
+            <input type="checkbox" id="ctrl-export-transparent">
+            <span>Transparent Background</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field-group" id="export-jpg-quality-group" hidden>
+        <div class="label-row">
+          <label for="ctrl-export-jpg-quality">JPEG Quality</label>
+          <span id="val-export-jpg-quality" class="meta-readout">95%</span>
+        </div>
+        <input type="range" id="ctrl-export-jpg-quality" class="range-input" min="10" max="100" step="1" value="95">
+      </div>
+
+      <div class="field-group" id="export-svg-outline-group" hidden>
+        <label class="checkbox-label" for="ctrl-export-outline-text">
+          <input type="checkbox" id="ctrl-export-outline-text">
+          <span>Convert text into vector path outlines (font-independent SVG)</span>
+        </label>
+      </div>
+
+      <div class="export-summary-box">
+        <div class="summary-row">
+          <span class="summary-key">Target Dimensions</span>
+          <span class="summary-val" id="export-summary-dims">900 × 1125 px</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-key">Format &amp; Scale</span>
+          <span class="summary-val" id="export-summary-format">PNG · 1× Native Raster</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-key">Background Mode</span>
+          <span class="summary-val" id="export-summary-bg">Solid (#F5F3EF)</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-key">Placed Text Boxes</span>
+          <span class="summary-val" id="export-summary-boxes">0 boxes</span>
+        </div>
+      </div>
+
+      <div id="export-error-msg" class="error-banner" hidden></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" id="btn-cancel-export" class="text-btn">Cancel</button>
+      <button type="button" id="btn-download-export" class="text-btn text-btn-inverted">Download File</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script id="initial-state-json" type="application/json">
+{{ {
+  "settings": initial_settings,
+  "image_meta": initial_image_meta,
+  "project_id": project_id
+} | tojson }}
+</script>
+<script src="{{ url_for('static', filename='js/preview.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/controls.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/export.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/editor.js') }}?v=2"></script>
+{% endblock %}

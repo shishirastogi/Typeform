@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" fill="none">
+  <rect width="1200" height="360" fill="#F5F3EF"/>
+  <rect x="0.5" y="0.5" width="1199" height="359" stroke="#171717" stroke-width="1"/>
+
+  <!-- Editorial Grid Rules -->
+  <line x1="0" y1="48" x2="1200" y2="48" stroke="#D8D5D0" stroke-width="1"/>
+  <line x1="0" y1="312" x2="1200" y2="312" stroke="#D8D5D0" stroke-width="1"/>
+  <line x1="680" y1="48" x2="680" y2="312" stroke="#D8D5D0" stroke-width="1"/>
+
+  <!-- Top Bar Metadata -->
+  <text x="28" y="30" fill="#171717" font-family="'Neue Machina', 'Space Grotesk', monospace, sans-serif" font-size="12" font-weight="700" letter-spacing="2">TYPEFORM // STUDIO</text>
+  <text x="240" y="30" fill="#77736F" font-family="'Neue Machina', 'Space Grotesk', monospace, sans-serif" font-size="11" letter-spacing="1.5">EDITORIAL TYPOGRAPHY ART GENERATOR</text>
+  <text x="1172" y="30" text-anchor="end" fill="#171717" font-family="'Neue Machina', 'Space Grotesk', monospace, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">SPEC v1.0 · OFFLINE</text>
+
+  <!-- Left Column: Title Lockup -->
+  <rect x="28" y="76" width="144" height="24" fill="#171717"/>
+  <text x="100" y="92" text-anchor="middle" fill="#F5F3EF" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="2">SILHOUETTE ENGINE</text>
+
+  <text x="28" y="156" fill="#171717" font-family="'Neue Machina', 'Space Grotesk', sans-serif" font-size="54" font-weight="700" letter-spacing="-1">TYPEFORM</text>
+  <text x="28" y="192" fill="#77736F" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="400" letter-spacing="0.4">Transform paragraphs and phrases into tightly packed</text>
+  <text x="28" y="214" fill="#77736F" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="400" letter-spacing="0.4">rectangular text-box compositions shaped by any silhouette.</text>
+
+  <!-- Spec Pills -->
+  <g transform="translate(28, 246)">
+    <rect x="0" y="0" width="88" height="28" fill="#171717"/>
+    <text x="44" y="18" text-anchor="middle" fill="#F5F3EF" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="1">PYTHON</text>
+
+    <rect x="94" y="0" width="78" height="28" fill="#D9381E"/>
+    <text x="133" y="18" text-anchor="middle" fill="#F5F3EF" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="1">FLASK</text>
+
+    <rect x="178" y="0" width="84" height="28" fill="#DDD7CD" stroke="#171717" stroke-width="1"/>
+    <text x="220" y="18" text-anchor="middle" fill="#171717" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="1">PILLOW</text>
+
+    <rect x="268" y="0" width="112" height="28" fill="#171717"/>
+    <text x="324" y="18" text-anchor="middle" fill="#F5F3EF" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="1">HTML5 CANVAS</text>
+
+    <rect x="386" y="0" width="136" height="28" fill="#F5F3EF" stroke="#171717" stroke-width="1"/>
+    <text x="454" y="18" text-anchor="middle" fill="#171717" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" letter-spacing="1">SVG · PNG · JPG 4×</text>
+  </g>
+
+  <!-- Right Column: Packed Typography Box Silhouette Illustration -->
+  <g transform="translate(716, 68)" font-family="'Space Grotesk', monospace, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8">
+    <!-- Row 1 (Crown) -->
+    <rect x="132" y="0" width="76" height="20" fill="#171717"/>
+    <text x="170" y="14" text-anchor="middle" fill="#F5F3EF">STRUCTURE</text>
+    <rect x="212" y="0" width="54" height="20" fill="#D9381E"/>
+    <text x="239" y="14" text-anchor="middle" fill="#F5F3EF">FORM</text>
+    <rect x="270" y="0" width="62" height="20" fill="#DDD7CD"/>
+    <text x="301" y="14" text-anchor="middle" fill="#171717">RHYTHM</text>
+
+    <!-- Row 2 -->
+    <rect x="96" y="24" width="68" height="20" fill="#DDD7CD"/>
+    <text x="130" y="38" text-anchor="middle" fill="#171717">CONTOUR</text>
+    <rect x="168" y="24" width="88" height="20" fill="#171717"/>
+    <text x="212" y="38" text-anchor="middle" fill="#F5F3EF">TYPOGRAPHY</text>
+    <rect x="260" y="24" width="52" height="20" fill="#3D3A36"/>
+    <text x="286" y="38" text-anchor="middle" fill="#F5F3EF">GRID</text>
+    <rect x="316" y="24" width="56" height="20" fill="#171717"/>
+    <text x="344" y="38" text-anchor="middle" fill="#F5F3EF">SPACE</text>
+
+    <!-- Row 3 -->
+    <rect x="82" y="48" width="58" height="20" fill="#171717"/>
+    <text x="111" y="62" text-anchor="middle" fill="#F5F3EF">WEIGHT</text>
+    <rect x="144" y="48" width="72" height="20" fill="#D9381E"/>
+    <text x="180" y="62" text-anchor="middle" fill="#F5F3EF">CONTRAST</text>
+    <rect x="220" y="48" width="82" height="20" fill="#171717"/>
+    <text x="261" y="62" text-anchor="middle" fill="#F5F3EF">PROPORTION</text>
+    <rect x="306" y="48" width="78" height="20" fill="#DDD7CD"/>
+    <text x="345" y="62" text-anchor="middle" fill="#171717">ALIGNMENT</text>
+
+    <!-- Row 4 -->
+    <rect x="92" y="72" width="84" height="20" fill="#3D3A36"/>
+    <text x="134" y="86" text-anchor="middle" fill="#F5F3EF">SILHOUETTE</text>
+    <rect x="180" y="72" width="56" height="20" fill="#DDD7CD"/>
+    <text x="208" y="86" text-anchor="middle" fill="#171717">LIGHT</text>
+    <rect x="240" y="72" width="66" height="20" fill="#171717"/>
+    <text x="273" y="86" text-anchor="middle" fill="#F5F3EF">SHADOW</text>
+    <rect x="310" y="72" width="64" height="20" fill="#D9381E"/>
+    <text x="342" y="86" text-anchor="middle" fill="#F5F3EF">VECTOR</text>
+
+    <!-- Row 5 (Jaw) -->
+    <rect x="118" y="96" width="66" height="20" fill="#171717"/>
+    <text x="151" y="110" text-anchor="middle" fill="#F5F3EF">MEASURE</text>
+    <rect x="188" y="96" width="74" height="20" fill="#DDD7CD"/>
+    <text x="225" y="110" text-anchor="middle" fill="#171717">LANGUAGE</text>
+    <rect x="266" y="96" width="82" height="20" fill="#171717"/>
+    <text x="307" y="110" text-anchor="middle" fill="#F5F3EF">RECTANGLE</text>
+
+    <!-- Row 6 (Neck) -->
+    <rect x="158" y="120" width="68" height="20" fill="#D9381E"/>
+    <text x="192" y="134" text-anchor="middle" fill="#F5F3EF">DENSITY</text>
+    <rect x="230" y="120" width="78" height="20" fill="#171717"/>
+    <text x="269" y="134" text-anchor="middle" fill="#F5F3EF">THRESHOLD</text>
+
+    <!-- Row 7 (Shoulders Upper) -->
+    <rect x="52" y="144" width="74" height="20" fill="#171717"/>
+    <text x="89" y="158" text-anchor="middle" fill="#F5F3EF">EDITORIAL</text>
+    <rect x="130" y="144" width="64" height="20" fill="#DDD7CD"/>
+    <text x="162" y="158" text-anchor="middle" fill="#171717">SYSTEM</text>
+    <rect x="198" y="144" width="72" height="20" fill="#171717"/>
+    <text x="234" y="158" text-anchor="middle" fill="#F5F3EF">SYLLABLE</text>
+    <rect x="274" y="144" width="60" height="20" fill="#3D3A36"/>
+    <text x="304" y="158" text-anchor="middle" fill="#F5F3EF">KERNING</text>
+    <rect x="338" y="144" width="74" height="20" fill="#D9381E"/>
+    <text x="375" y="158" text-anchor="middle" fill="#F5F3EF">ARTIFACT</text>
+
+    <!-- Row 8 (Shoulders Base) -->
+    <rect x="26" y="168" width="82" height="20" fill="#DDD7CD"/>
+    <text x="67" y="182" text-anchor="middle" fill="#171717">MONOCHROME</text>
+    <rect x="112" y="168" width="76" height="20" fill="#171717"/>
+    <text x="150" y="182" text-anchor="middle" fill="#F5F3EF">GEOMETRY</text>
+    <rect x="192" y="168" width="58" height="20" fill="#D9381E"/>
+    <text x="221" y="182" text-anchor="middle" fill="#F5F3EF">MATRIX</text>
+    <rect x="254" y="168" width="86" height="20" fill="#171717"/>
+    <text x="297" y="182" text-anchor="middle" fill="#F5F3EF">COMPOSITION</text>
+    <rect x="344" y="168" width="94" height="20" fill="#3D3A36"/>
+    <text x="391" y="182" text-anchor="middle" fill="#F5F3EF">ARCHITECTURE</text>
+
+    <!-- Row 9 (Torso Base) -->
+    <rect x="18" y="192" width="66" height="20" fill="#171717"/>
+    <text x="51" y="206" text-anchor="middle" fill="#F5F3EF">INK</text>
+    <rect x="88" y="192" width="66" height="20" fill="#3D3A36"/>
+    <text x="121" y="206" text-anchor="middle" fill="#F5F3EF">PAPER</text>
+    <rect x="158" y="192" width="88" height="20" fill="#DDD7CD"/>
+    <text x="202" y="206" text-anchor="middle" fill="#171717">TYPEFORM</text>
+    <rect x="250" y="192" width="66" height="20" fill="#171717"/>
+    <text x="283" y="206" text-anchor="middle" fill="#F5F3EF">BALANCE</text>
+    <rect x="320" y="192" width="62" height="20" fill="#D9381E"/>
+    <text x="351" y="206" text-anchor="middle" fill="#F5F3EF">SCALE</text>
+    <rect x="386" y="192" width="64" height="20" fill="#171717"/>
+    <text x="418" y="206" text-anchor="middle" fill="#F5F3EF">POSTER</text>
+  </g>
+
+  <!-- Bottom Bar Footer -->
+  <text x="28" y="340" fill="#77736F" font-family="'Neue Machina', 'Space Grotesk', monospace, sans-serif" font-size="11" letter-spacing="1">DEFAULT PROTOTYPE: SPACE GROTESK · 66PX BOX · 4PX SPACING · RANDOM PALETTE · SILHOUETTE FIT</text>
+  <text x="1172" y="340" text-anchor="end" fill="#171717" font-family="'Neue Machina', 'Space Grotesk', monospace, sans-serif" font-size="11" font-weight="700" letter-spacing="1">1× / 2× / 3× / 4×</text>
+</svg>

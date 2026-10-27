@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}About — {{ app_name }}{% endblock %}
+
+{% block content %}
+<main class="editorial-page">
+  <div class="editorial-container">
+    <div class="editorial-header">
+      <span class="editorial-kicker">SPECIFICATION / ARCHITECTURE</span>
+      <h1 class="editorial-title">About {{ app_name }}</h1>
+      <p class="editorial-lead">
+        An offline-capable, editorial-grade typographic layout utility built with Python, Flask, Pillow, HTML5 Canvas, and vanilla JavaScript.
+      </p>
+    </div>
+
+    <div class="editorial-grid">
+      <article class="editorial-block">
+        <span class="block-num">A</span>
+        <h2>Design Philosophy</h2>
+        <p>
+          {{ app_name }} is designed as a restrained graphic design instrument rather than a decorative dashboard. The interface uses only warm off-white (<code>#F5F3EF</code>), near-black (<code>#171717</code>), and neutral structural rules (<code>#D8D5D0</code>) so the artist's typography and palette remain the sole visual focus.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">B</span>
+        <h2>Deterministic Geometry Engine</h2>
+        <p>
+          Image silhouettes are converted into normalized binary masks backed by a two-dimensional summed-area integral table for constant-time overlap evaluation. Preview rendering on the HTML5 Canvas and high-resolution server exports share identical layout coordinates and font metrics.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">C</span>
+        <h2>Privacy &amp; Local Execution</h2>
+        <p>
+          All image processing, silhouette extraction, text measurement, and vector/raster rendering execute locally. Uploaded images are validated, isolated to the active browser session, and never transmitted to external services or third-party APIs.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">D</span>
+        <h2>Default Prototype Configuration</h2>
+        <p>
+          Default artwork settings initialize with <strong>Space Grotesk</strong>, <strong>66 px</strong> reference box width, <strong>4 px</strong> horizontal and vertical spacing, <strong>Random</strong> palette distribution, and <strong>Silhouette</strong> contour fitting.
+        </p>
+      </article>
+    </div>
+  </div>
+</main>
+{% endblock %}

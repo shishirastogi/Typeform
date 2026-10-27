@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>{% block title %}{{ app_name }} — Minimal Typography Art Studio{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
+</head>
+<body class="page-{{ active_page|default('editor') }}">
+  <header class="top-header" role="banner">
+    <div class="header-left">
+      <a href="{{ url_for('pages.index') }}" class="wordmark">{{ app_name }}</a>
+      <span class="header-divider">/</span>
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <a href="{{ url_for('pages.index') }}" class="nav-link {% if active_page == 'editor' %}is-active{% endif %}">Editor</a>
+        <a href="{{ url_for('pages.guide') }}" class="nav-link {% if active_page == 'guide' %}is-active{% endif %}">Guide</a>
+        <a href="{{ url_for('pages.about') }}" class="nav-link {% if active_page == 'about' %}is-active{% endif %}">About</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      {% if active_page == 'editor' %}
+      <span id="status-indicator" class="status-indicator" aria-live="polite">Ready</span>
+      <button type="button" id="btn-save-project" class="text-btn" title="Save current project state">Save</button>
+      <button type="button" id="btn-reset-project" class="text-btn" title="Reset project to default state">Reset</button>
+      <button type="button" id="btn-open-export" class="text-btn text-btn-inverted" title="Open export controls">Export</button>
+      {% else %}
+      <a href="{{ url_for('pages.index') }}" class="text-btn text-btn-inverted">Return to Editor</a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

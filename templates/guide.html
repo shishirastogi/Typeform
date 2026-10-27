@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Guide — {{ app_name }}{% endblock %}
+
+{% block content %}
+<main class="editorial-page">
+  <div class="editorial-container">
+    <div class="editorial-header">
+      <span class="editorial-kicker">DOCUMENTATION / WORKFLOW</span>
+      <h1 class="editorial-title">Operational Guide</h1>
+      <p class="editorial-lead">
+        TYPEFORM transforms paragraphs, phrases, or repeated words into structured typographic box compositions shaped by an uploaded silhouette or reference figure.
+      </p>
+    </div>
+
+    <div class="editorial-grid">
+      <article class="editorial-block">
+        <span class="block-num">01</span>
+        <h2>Text Input &amp; Distribution</h2>
+        <p>
+          Enter any source paragraph into the multiline editor. Live word and character counts update immediately. Enable <strong>Repeat Text</strong> to cycle through your paragraph until the silhouette is completely filled, or disable it to place each word once and stop when the text is exhausted.
+        </p>
+        <p>
+          Choose between <strong>Sequential</strong> reading order, <strong>Randomized</strong> word order controlled by a deterministic seed, or <strong>Custom Word / Phrase</strong> repetition.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">02</span>
+        <h2>Image Upload &amp; Mask Extraction</h2>
+        <p>
+          Upload a PNG, JPG, JPEG, or WebP file via drag-and-drop or the file browser, or select one of the built-in procedural silhouettes. Transparent PNGs can extract their silhouette directly from the alpha channel.
+        </p>
+        <p>
+          For opaque photographs and graphics, adjust <strong>Threshold</strong>, <strong>Contrast</strong>, <strong>Foreground Mode</strong>, and <strong>Invert Mask</strong> while observing the binary mask preview or the interactive <strong>Mask Overlay</strong> and <strong>Before / After</strong> split view.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">03</span>
+        <h2>Typography &amp; Box Geometry</h2>
+        <p>
+          Configure font family, size, weight, style, case transformation, letter tracking, and internal box alignment. Every word is measured prior to placement so rectangles adapt cleanly without unintended clipping.
+        </p>
+        <p>
+          Select from five layout engines: <strong>Word Boxes</strong> (rectangles sized to each measured word), <strong>Variable-Width Rows</strong>, <strong>Fixed Uniform Grid</strong>, <strong>Dense Typography</strong>, or <strong>Loose Typography</strong>.
+        </p>
+      </article>
+
+      <article class="editorial-block">
+        <span class="block-num">04</span>
+        <h2>Palette &amp; Multi-Resolution Export</h2>
+        <p>
+          While the studio interface remains strictly monochromatic, artwork colors can be configured using Monochrome, Two-Color, Random Palette, Custom Sequence, Grayscale, or Gradient modes with per-swatch frequency weights.
+        </p>
+        <p>
+          Click <strong>Export</strong> to download vector <strong>SVG</strong> (with optional glyph-to-path outline conversion), lossless <strong>PNG</strong> (with optional alpha transparency), or print-ready <strong>JPG</strong> at native <strong>1×, 2×, 3×, or 4×</strong> resolution multipliers.
+        </p>
+      </article>
+    </div>
+  </div>
+</main>
+{% endblock %}
